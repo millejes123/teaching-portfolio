@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jessica Miller | Educator Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1a18; --paper: #f7f4ef; --cream: #ede9e1;
+    --sage: #7a9e87; --terra: #c07d5a; --gold: #b8974a;
+    --light-sage: #e8f0ea; --muted: #7a7770;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 3rem; background: rgba(247,244,239,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--cream); }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; letter-spacing: 0.08em; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+
+  #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 8rem 6rem 5rem; }
+  .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
+  .hero-name { font-family: var(--serif); font-size: clamp(3.5rem, 6vw, 5.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
+  .hero-name em { font-style: italic; color: var(--terra); }
+  .hero-tagline { font-size: 1rem; color: var(--muted); max-width: 520px; line-height: 1.8; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.8s 0.6s forwards; }
+  .hero-tags { display: flex; gap: 0.6rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s 0.8s forwards; }
+  .tag { padding: 0.4rem 0.9rem; border: 1px solid var(--cream); border-radius: 100px; font-size: 0.72rem; letter-spacing: 0.06em; color: var(--muted); background: white; }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(16px); } to { opacity:1; transform: translateY(0); } }
+
+  section { padding: 6rem 6rem; }
+  .section-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.8rem; }
+  .section-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.1; margin-bottom: 3rem; }
+  .section-title em { font-style: italic; color: var(--terra); }
+
+  #about { background: white; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .about-text p { font-size: 1.05rem; color: #3a3a38; line-height: 1.9; margin-bottom: 1.2rem; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; padding: 2.5rem; background: var(--light-sage); border-radius: 4px; align-content: center; }
+  .stat { text-align: center; padding: 1rem; }
+  .stat-num { font-family: var(--serif); font-size: 2.8rem; font-weight: 300; color: var(--terra); line-height: 1; margin-bottom: 0.4rem; }
+  .stat-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+  #experience { background: var(--paper); }
+  .timeline { position: relative; }
+  .timeline::before { content: ''; position: absolute; left: 1.2rem; top: 0; bottom: 0; width: 1px; background: var(--cream); }
+  .timeline-item { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+  .timeline-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--sage); border: 2px solid var(--paper); outline: 1px solid var(--sage); margin-top: 0.55rem; position: relative; left: 0.75rem; }
+  .timeline-dot.current { background: var(--terra); outline-color: var(--terra); }
+  .timeline-meta { font-size: 0.72rem; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; margin-bottom: 0.3rem; }
+  .timeline-role { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; margin-bottom: 0.2rem; }
+  .timeline-org { font-size: 0.88rem; color: var(--terra); margin-bottom: 0.7rem; font-weight: 400; }
+  .timeline-bullets { list-style: none; }
+  .timeline-bullets li { font-size: 0.88rem; color: #4a4a48; line-height: 1.7; padding-left: 1rem; position: relative; margin-bottom: 0.2rem; }
+  .timeline-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--sage); font-size: 0.75rem; }
+
+  #skills { background: var(--light-sage); }
+  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  .skill-card { padding: 2rem 1.5rem; border: 1px solid rgba(122,158,135,0.3); border-radius: 4px; background: white; transition: border-color 0.3s, box-shadow 0.3s; }
+  .skill-card:hover { border-color: var(--sage); box-shadow: 0 4px 20px rgba(122,158,135,0.15); }
+  .skill-card-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+  .skill-card-title { font-family: var(--serif); font-size: 1.1rem; margin-bottom: 0.8rem; color: var(--ink); }
+  .skill-items { list-style: none; }
+  .skill-items li { font-size: 0.8rem; color: var(--muted); line-height: 1.9; }
+
+  #profdev { background: white; }
+  .profdev-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+  .profdev-card { padding: 1.8rem; border-left: 3px solid var(--sage); background: var(--paper); border-radius: 0 4px 4px 0; }
+  .profdev-year { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+  .profdev-name { font-family: var(--serif); font-size: 1.05rem; line-height: 1.3; margin-bottom: 0.4rem; }
+  .profdev-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+
+  #portfolio { background: var(--light-sage); }
+  .portfolio-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+  .portfolio-card { background: white; border-radius: 4px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+  .portfolio-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+  .portfolio-card-header { padding: 2rem 1.8rem 1rem; border-bottom: 1px solid var(--cream); }
+  .portfolio-card-emoji { font-size: 2rem; margin-bottom: 0.8rem; }
+  .portfolio-card-title { font-family: var(--serif); font-size: 1.15rem; margin-bottom: 0.3rem; }
+  .portfolio-card-tag { display: inline-block; padding: 0.2rem 0.6rem; background: var(--light-sage); border-radius: 100px; font-size: 0.68rem; letter-spacing: 0.06em; color: var(--sage); text-transform: uppercase; }
+  .portfolio-card-body { padding: 1.2rem 1.8rem 1.8rem; }
+  .portfolio-card-body p { font-size: 0.85rem; color: #4a4a48; line-height: 1.75; }
+  .portfolio-link { display: inline-block; margin-top: 0.8rem; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage); text-decoration: none; border-bottom: 1px solid var(--sage); padding-bottom: 1px; }
+
+  #contact { background: var(--ink); color: var(--paper); text-align: center; padding: 6rem 4rem; }
+  #contact .section-label { color: var(--sage); }
+  #contact .section-title { color: var(--paper); margin-bottom: 1.5rem; }
+  #contact p { color: rgba(247,244,239,0.6); max-width: 480px; margin: 0 auto 3rem; font-size: 0.95rem; }
+  .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .contact-btn { padding: 0.9rem 2rem; border-radius: 100px; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; font-family: var(--sans); }
+  .contact-btn.primary { background: var(--sage); color: white; }
+  .contact-btn.primary:hover { background: #6a8e77; }
+  .contact-btn.secondary { border: 1px solid rgba(255,255,255,0.2); color: var(--paper); }
+  .contact-btn.secondary:hover { background: rgba(255,255,255,0.05); }
+
+  footer { background: #111110; color: rgba(247,244,239,0.3); text-align: center; padding: 1.5rem; font-size: 0.72rem; letter-spacing: 0.06em; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 2rem; }
+    #hero { padding: 7rem 2rem 3rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .profdev-grid { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">Jessica Miller</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#profdev">Development</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <p class="hero-eyebrow">Educator · Startup Strategist · World Traveler</p>
+  <h1 class="hero-name">Jessica<br><em>Miller</em></h1>
+  <p class="hero-tagline">Connecting students to language, culture, and critical thinking — from Austin to Seoul to Paris and beyond.</p>
+  <div class="hero-tags">
+    <span class="tag">Content Based ESL</span>
+    <span class="tag">Ethnic Studies</span>
+    <span class="tag">Model UN</span>
+    <span class="tag">Curriculum Design</span>
+    <span class="tag">AI in Education</span>
+    <span class="tag">French · Spanish</span>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-label">Introduction</div>
+  <div class="section-title">About <em>Me</em></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I love teaching English, building creative projects, and helping students from all cultures reach their goals. There is nothing more rewarding than watching a student find their voice in a new language, connect with a piece of history, or surprise themselves with what they're capable of. I show up every day excited to design experiences that make that happen.</p>
+      <p>At Austin ISD International High School, I teach Ethnic Studies and Geography to emergent bilingual students — adapting grade-level content to meet students where they are in their English journey while keeping expectations high for every learner.</p>
+      <p>Before returning to the U.S., I spent nearly six years in South Korea building and growing ESL programs at schools and startups like AMJ Studios and Spoon English, where I helped shape their early English curriculum. I care deeply about equity, inclusive classrooms, and the power of creative teaching to open doors for students who are still finding their voice in English.</p>
+    </div>
+    <div class="about-stats" style="grid-template-columns: 1fr; gap: 0;">
+      <div class="stat" style="border-bottom: 1px solid rgba(122,158,135,0.2); padding: 1.2rem;">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Years in Education</div>
+      </div>
+      <div class="stat" style="border-bottom: 1px solid rgba(122,158,135,0.2); padding: 1.2rem;">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Countries Taught In</div>
+      </div>
+      <div class="stat" style="padding: 1.2rem;">
+        <div class="stat-num" style="font-size:1.9rem; color: var(--terra);">5 Languages</div>
+        <div class="stat-label" style="margin-top: 0.5rem; line-height: 1.8;">Experience teaching students in the same classroom with multiple native languages — up to 5 different languages at a time</div>
+      </div>
+      <div class="stat" style="border-top: 1px solid rgba(122,158,135,0.2); padding: 1.2rem;">
+        <div class="stat-num" style="font-size:1.9rem; color: var(--terra);">5 Levels</div>
+        <div class="stat-label" style="margin-top: 0.5rem; line-height: 1.8;">Experience differentiating curriculum across all 5 TELPAS proficiency levels — Beginning, Intermediate, Advanced, Advanced High &amp; Proficient</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-label">Career Timeline</div>
+  <div class="section-title"><em>Experience</em></div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot current"></div>
+      <div class="timeline-content">
+        <div class="timeline-meta">Aug 2023 – Present · Austin, TX</div>
+        <div class="timeline-role">Content Based ESL Teacher</div>
+        <div class="timeline-org">Austin ISD International High School</div>
+        <ul class="timeline-bullets">
+          <li>Earned "Highly Effective" ratings in instructional evaluations each year</li>
+          <li>Adapt curriculum to make grade-level content accessible for students at various English proficiency levels</li>
+          <li>Implement targeted strategies aligned with TELPAS and STAAR U.S. History standards</li>
+          <li>Integrate Harvard Case Method strategies for discussion-based learning</li>
+          <li>Design and facilitate Model UN simulations to enhance critical thinking and English speaking proficiency</li>
+          <li>Create culturally responsive research projects using oral history, case study, and content analysis</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-meta">Aug 2022 – Jun 2023 · San Antonio, TX</div>
+        <div class="timeline-role">Content Based ESL Teacher</div>
+        <div class="timeline-org">Judson ISD Judson High School</div>
+        <ul class="timeline-bullets">
+          <li>Designed TEKS-aligned Geography lesson plans for four classes of 30+ students</li>
+          <li>Increased overall student test scores by 24% through targeted instruction and data-driven strategies</li>
+          <li>Improved emergent bilingual students' test scores by 18% through differentiated supports and language-building activities</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-meta">Jan 2020 – Jan 2022 · Seoul, South Korea</div>
+        <div class="timeline-role">ESL Teacher</div>
+        <div class="timeline-org">AMJ Studios Academy</div>
+        <ul class="timeline-bullets">
+          <li>Designed engaging Novel, Grammar, and Writing lesson plans for Korean students' English language development</li>
+          <li>Developed the academy's grammar curriculum aligned with program goals and student proficiency levels</li>
+          <li>Produced and directed 20 student-centered YouTube video projects to highlight student growth and strengthen parent engagement</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-meta">2017 – 2022 · Seoul, South Korea</div>
+        <div class="timeline-role">ESL Tutor &amp; Workshop Host</div>
+        <div class="timeline-org">Spoon English (Part-time)</div>
+        <ul class="timeline-bullets">
+          <li>Tutored Korean students in English conversation, enhancing fluency and confidence</li>
+          <li>Prepared students for job interviews, building professional communication skills</li>
+          <li>Planned and facilitated interactive workshops integrating hobbies like calligraphy, baking, and film discussion</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-meta">Nov 2018 – Dec 2019 · Seoul, South Korea</div>
+        <div class="timeline-role">ESL Teacher</div>
+        <div class="timeline-org">Wesley Language School</div>
+        <ul class="timeline-bullets">
+          <li>Created lesson plans for speaking classes focused on discussion and vocabulary development</li>
+          <li>Wrote middle school public speaking curriculum and prepped students for TED Talk competition</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-meta">Jul 2016 – Jul 2018 · Seoul, South Korea</div>
+        <div class="timeline-role">ESL Teacher</div>
+        <div class="timeline-org">Milestone Institute</div>
+        <ul class="timeline-bullets">
+          <li>Created lesson plans for novel and writing classes</li>
+          <li>Taught the advanced summer writing program for international school students</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-meta">Sep 2015 – Dec 2015 · Chambersburg, PA</div>
+        <div class="timeline-role">Youth Development Professional</div>
+        <div class="timeline-org">Boys &amp; Girls Club of America</div>
+        <ul class="timeline-bullets">
+          <li>Tutored ESL students in Chambersburg Area School District</li>
+          <li>Translated parent correspondence into Spanish &amp; French</li>
+          <li>Networked with local universities to recruit mentors for students</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-meta">Aug 2014 – Jul 2015 · Paris, France</div>
+        <div class="timeline-role">Au Pair</div>
+        <div class="timeline-org">Au Pair Paris / Nannynou</div>
+        <ul class="timeline-bullets">
+          <li>Practiced and developed English skills with children through daily immersive interaction</li>
+          <li>Shared American culture through creative, hands-on activities</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-meta">Sep 2012 – Aug 2014 · Chambersburg, PA</div>
+        <div class="timeline-role">Title I &amp; III Parent Coordinator</div>
+        <div class="timeline-org">Chambersburg Area School District</div>
+        <ul class="timeline-bullets">
+          <li>Directed the first annual STEM Kite Festival — secured sponsorships, coordinated 20 organizations, and led 30 volunteers</li>
+          <li>Organized and directed the Franklin County Literacy Fair managing logistics, budget, and 15 nonprofits</li>
+          <li>Managed the bilingual Preschool Readiness Calendar Project, overseeing production and distribution of 5,000 calendars</li>
+          <li>Initiated the Summer Reading Program in partnership with the Franklin County Library System</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-meta">Mar 2012 – Feb 2013 · Chambersburg, PA</div>
+        <div class="timeline-role">Student Support Specialist Assistant</div>
+        <div class="timeline-org">Lincoln Intermediate Unit 12</div>
+        <ul class="timeline-bullets">
+          <li>Managed an after-school tutoring program for ESL and migrant students</li>
+          <li>Recruited college tutors through partnerships with Shippensburg University professors</li>
+          <li>Organized 30 college student volunteers daily</li>
+          <li>Designed and maintained the after-school program's website</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-label">What I Bring</div>
+  <div class="section-title">Skills &amp; <em>Expertise</em></div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-card-icon">📚</div>
+      <div class="skill-card-title">Teaching</div>
+      <ul class="skill-items">
+        <li>Content Based ESL Instruction</li>
+        <li>Curriculum Writing</li>
+        <li>TELPAS Test Prep</li>
+        <li>Data Analysis</li>
+        <li>Differentiation</li>
+        <li>Project Based Learning</li>
+        <li>Parent Communication</li>
+        <li>Classroom Management</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">💻</div>
+      <div class="skill-card-title">Tech</div>
+      <ul class="skill-items">
+        <li>Google Classroom</li>
+        <li>ECST</li>
+        <li>Frontline</li>
+        <li>Ellevation</li>
+        <li>Canva</li>
+        <li>Padlet</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">🤖</div>
+      <div class="skill-card-title">AI</div>
+      <ul class="skill-items">
+        <li>Microsoft Copilot AI</li>
+        <li>Google Gemini</li>
+        <li>Google NotebookLM</li>
+        <li>Otter.ai</li>
+        <li>Perplexity</li>
+        <li>Claude</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">🌐</div>
+      <div class="skill-card-title">Languages</div>
+      <ul class="skill-items">
+        <li>English — Native</li>
+        <li>Spanish — Advanced</li>
+        <li>French — Beginner</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="profdev">
+  <div class="section-label">Continued Learning</div>
+  <div class="section-title">Professional <em>Development</em></div>
+  <div class="profdev-grid">
+    <div class="profdev-card">
+      <div class="profdev-year">January 2026</div>
+      <div class="profdev-name">Harvard Case Method Workshop</div>
+      <div class="profdev-desc">Training in discussion-based learning strategies for secondary classrooms, now integrated into daily ESL instruction at Austin ISD International High School.</div>
+    </div>
+    <div class="profdev-card">
+      <div class="profdev-year">January 2026</div>
+      <div class="profdev-name">CIMA World Languages Institute</div>
+      <div class="profdev-desc">A full-day conference hosted by ESC Region 13 bringing together World Language educators across Texas for innovative learning, networking, and inspiration around improving outcomes for language learners.</div>
+    </div>
+    <div class="profdev-card">
+      <div class="profdev-year">January 2026</div>
+      <div class="profdev-name">The Making of a President: Presidential Leadership in Volatile Times</div>
+      <div class="profdev-desc">A full-day teacher workshop at the LBJ Presidential Library exploring the leadership of George Washington and LBJ through primary source analysis and classroom-ready discussion strategies. Co-created by Mount Vernon and the LBJ Library.</div>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio">
+  <div class="section-label">In the Classroom</div>
+  <div class="section-title">Teaching <em>Portfolio</em></div>
+  <div class="portfolio-grid">
+
+    <div class="portfolio-card">
+      <div class="portfolio-card-header">
+        <div class="portfolio-card-emoji">🌐</div>
+        <div class="portfolio-card-title">Model UN Simulations</div>
+        <span class="portfolio-card-tag">Critical Thinking</span>
+      </div>
+      <div class="portfolio-card-body">
+        <p>Students represent countries in the UN by researching a global issue, presenting their country's position in English, and then voting on a resolution after everyone has presented. This activity builds academic vocabulary, persuasive speaking, and global citizenship — perfect for emergent bilinguals who need authentic, high-stakes practice.</p>
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <div class="portfolio-card-header">
+        <div class="portfolio-card-emoji">🎤</div>
+        <div class="portfolio-card-title">Harvard Case Method Discussions</div>
+        <span class="portfolio-card-tag">Discussion-Based</span>
+      </div>
+      <div class="portfolio-card-body">
+        <p>Inspired by real-world case studies, I use this method to get students to analyze issues in Ethnic Studies by thinking about what it would be like to have to make a decision in a historical figure's shoes. For example, students examine Colin Kaepernick's decision to kneel during the national anthem — weighing the risks, values, and context he faced — before discussing and debating what they would have done.</p>
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <div class="portfolio-card-header">
+        <div class="portfolio-card-emoji">🎬</div>
+        <div class="portfolio-card-title">Student YouTube Video Projects</div>
+        <span class="portfolio-card-tag">Creative Media</span>
+      </div>
+      <div class="portfolio-card-body">
+        <p>Students script, film, and edit their own English-language videos — documenting their learning journey for parents and showcasing growth. I directed 20 of these projects at AMJ Studios, building student confidence and giving families a tangible window into progress.</p>
+        <a href="https://www.youtube.com/channel/UCTKERxtZy4NQuyDn1dk3Hsg" target="_blank" class="portfolio-link">View Student Videos →</a>
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <div class="portfolio-card-header">
+        <div class="portfolio-card-emoji">📖</div>
+        <div class="portfolio-card-title">Culturally Responsive Research Projects</div>
+        <span class="portfolio-card-tag">Culturally Responsive</span>
+      </div>
+      <div class="portfolio-card-body">
+        <p>Students explore history and culture through a variety of research methods — oral history interviews with family members, case study analysis, and content analysis using films and media. These projects validate students' lived experiences as academic knowledge while building literacy and critical thinking skills in a culturally affirming way.</p>
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <div class="portfolio-card-header">
+        <div class="portfolio-card-emoji">🦸</div>
+        <div class="portfolio-card-title">AI Superhero Capstone Project</div>
+        <span class="portfolio-card-tag">AI + Ethnic Studies</span>
+      </div>
+      <div class="portfolio-card-body">
+        <p>For the end-of-year Ethnic Studies capstone, students use Google Gemini and Microsoft Copilot to create their own superhero from their home culture. After studying stereotypes and why representation in media matters, students pitch an original movie script featuring a superhero who breaks stereotypes and reflects their cultural identity — bringing together research, creative writing, and AI tools in one powerful project.</p>
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <div class="portfolio-card-header">
+        <div class="portfolio-card-emoji">🎨</div>
+        <div class="portfolio-card-title">Hobby-Based English Workshops</div>
+        <span class="portfolio-card-tag">Engagement</span>
+      </div>
+      <div class="portfolio-card-body">
+        <p>At Spoon English, I designed workshops where adult learners practiced English through shared interests — calligraphy, baking, film discussions, and more. Lowering the stakes made the language feel accessible, and students left with both new skills and new confidence.</p>
+        <a href="https://www.spoonenglish.com/about" target="_blank" class="portfolio-link">Visit Spoon English →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-label">Get in Touch</div>
+  <h2 class="section-title">Let's <em>Connect</em></h2>
+  <p>I'm excited to connect with Austin ISD principals and explore how I can contribute to your school community. Please reach out — I'd love to talk teaching.</p>
+  <div class="contact-links">
+    <a href="https://www.linkedin.com/in/jdm1988/" target="_blank" class="contact-btn secondary">LinkedIn Profile</a>
+    <a href="Jessica_Miller_Resume.pdf" download class="contact-btn secondary">Download Résumé</a>
+  </div>
+</section>
+
+<footer>&copy; 2026 Jessica Mi
